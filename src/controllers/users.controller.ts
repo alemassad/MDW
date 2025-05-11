@@ -6,17 +6,8 @@ export const controller = (req: Request, res: Response) => {
   res.json({ user: name });
 };
 
-interface UserBody {
-  name: string;
-  lastname: string;
-  birthdate: string;
-  email: string;
-  isAdmin?: boolean;
-}
-
-
 export const createUser = async (
-  req: Request<{}, {}, UserBody>,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -36,19 +27,72 @@ export const createUser = async (
   }
 };
 
-export const getUsers = (req: Request, res: Response) => {
-  const { name } = req.params;
-  res.json({ user: "alguien" });
+// export const getUsers = (req: Request, res: Response) => {
+//   const { name } = req.params;
+//   res.json({ user: "alguien" });
+// };
+export const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      message: "Cars retrieved successfully",
+      error: false,
+      data: users,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
+
 export const getUser = (req: Request, res: Response) => {
   const { name } = req.params;
   res.json({ user: name });
 };
-export const updateUser = (req: Request, res: Response) => {
-  const { name } = req.params;
-  res.json({ user: name });
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const birthdate = new Date(req.body.birthdate);
+  try {
+    const updateUser = await User.findByIdAndUpdate(req.params.id, {
+      ...req.body,
+      birthdate,
+    });
+      res.status(200).json({
+      message: "User updated successfully",
+      data: updateUser,
+      error: false,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
-export const deleteUser = (req: Request, res: Response) => {
-  const { name } = req.params;
-  res.json({ user: name });
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const deleteUser = await User.findByIdAndDelete(req.params.id);
+    if (!deleteUser) {
+      res.status(404).json({
+        message: "User not found",
+        error: true,
+      });
+    } else {
+      res.status(204).json({
+        message: "User deleted successfully",
+        data: deleteUser,
+        error: false,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
 };

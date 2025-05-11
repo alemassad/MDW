@@ -1,6 +1,6 @@
 import { Category, Car, User } from "./models";
 
-const user = new User({
+/* const user = new User({
   name: "John",
     lastname: "Doe",
     birthdate: new Date("1990-01-01"),
@@ -22,14 +22,14 @@ const category = new Category({
   name: "SUV",
   description: "Sport Utility Vehicle",
   cars: []
-});
+}); */
 
 export const syncDatabase = async () => {
     try {
-        const newUser = await user.save();
+        /* const newUser = await user.save();
         car.ownerId = newUser.id;
         await car.save();
-        await category.save();
+        await category.save(); */
     
         console.log("Database synced successfully 🟢");
     } catch (error) {
