@@ -2,7 +2,6 @@ import express, { json, Request, Response } from "express";
 import router from "./routes/index";
 import dotenv from "dotenv";
 import connectDB from "./database";
-import { syncDatabase } from "./syncDatabase";
 
 const app = express();
 dotenv.config();
@@ -10,7 +9,6 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 
 connectDB();
-syncDatabase();
 
 app.use(json());
 

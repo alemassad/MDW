@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../models";
+import firebaseApp from "../config/firebase";
 
 export const controller = (req: Request, res: Response) => {
   const { name } = req.params;
@@ -11,13 +12,19 @@ export const createUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
+  const { password, ...restBody } = req.body;
   const formatedDate = new Date(req.body.birthdate);
   try {
+    const { uid } = await firebaseApp.auth().createUser({
+      email: req.body.email,
+      password,
+    });
     const newUser = await User.create({
-      ...req.body,
+      ...restBody,
+      firebaseUid: uid,
       birthdate: formatedDate,
     });
-      res.status(201).json({
+    res.status(201).json({
       message: "User created successfully",
       data: newUser,
       error: false,
@@ -64,15 +71,16 @@ export const updateUser = async (
       ...req.body,
       birthdate,
     });
-      res.status(200).json({
+    res.status(200).json({
       message: "User updated successfully",
       data: updateUser,
-      error: false,
-    });
+      error: false,  
+     });
   } catch (error) {
     next(error);
   }
 };
+
 export const deleteUser = async (
   req: Request,
   res: Response,

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { formatMiddleware } from "../middlewares/users.middlewares";
+//import { formatMiddleware } from "../middlewares/users.middlewares";
 import { createUserValidation, deleteUserValidation, updateUserValidation } from "../validations";
 import {
   createUser,

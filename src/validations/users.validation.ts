@@ -1,4 +1,4 @@
-import Joi, { object } from "joi";
+import Joi from "joi";
 import { NextFunction, Request, Response } from "express";
 
 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -11,6 +11,7 @@ const createUserBodyValidationSchema = Joi.object({
     .pattern(emailPattern)
     .message("Ingrese un email válido")
     .required(),
+  password: Joi.string().min(4).max(20).required(),
   isAdmin: Joi.boolean().optional().default(false),
 });
 

@@ -6,6 +6,7 @@ interface User extends Document {
   birthdate: Date;
   email: string;
   isAdmin: boolean;
+  firebaseUid: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -15,6 +16,7 @@ const UserSchema: Schema = new Schema(
     birthdate: { type: Date, required: true },
     email: { type: String, required: true, unique: true },
     isAdmin: { type: Boolean, default: false },
+    firebaseUid: { type: String},
   },
   {
     timestamps: true,
