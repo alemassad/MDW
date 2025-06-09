@@ -34,10 +34,6 @@ export const createUser = async (
   }
 };
 
-// export const getUsers = (req: Request, res: Response) => {
-//   const { name } = req.params;
-//   res.json({ user: "alguien" });
-// };
 export const getUsers = async (
   req: Request,
   res: Response,

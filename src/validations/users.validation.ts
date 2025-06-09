@@ -61,7 +61,6 @@ export const updateUserValidation = (
       error: true,
     });
   }
-
   if (paramError) {
     res.status(400).json({
       message: paramError.details[0].message,

@@ -45,8 +45,8 @@ export const getCar = async (
 
 export const getCarsByCategory = async (
   req: Request,
-    res: Response,
-    next: NextFunction
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const categoty = await Category.findById(req.params.id).populate("cars");
@@ -61,9 +61,79 @@ export const getCarsByCategory = async (
     res.status(200).json({
       message: "Cars retrieved successfully",
       error: false,
-      data: categoty?.cars
+      data: categoty?.cars,
     });
   } catch (error) {
     next(error);
   }
-}
+};
+//------- COMPLETANDO CRUD ----------------------
+export const createCar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const car = new Car(req.body);
+    await car.save();
+    res.status(201).json({
+      message: "Car created successfully",
+      error: false,
+      data: car,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const car = await Car.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    if (!car) {
+      res.status(404).json({
+        message: "Car not found",
+        error: true,
+        data: undefined,
+      });
+    }
+    res.status(200).json({
+      message: "Car updated successfully",
+      error: false,
+      data: car,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteCar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const car = await Car.findByIdAndDelete(req.params.id);
+
+    if (!car) {
+      res.status(404).json({
+        message: "Car not found",
+        error: true,
+        data: undefined,
+      });
+    }
+    res.status(200).json({
+      message: "Car deleted successfully",
+      error: false,
+      data: car,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
