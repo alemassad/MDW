@@ -40,20 +40,23 @@ export const getUsers = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const users = await User.find();
+    const { name } = req.query;
+    let users;
+    if (name) {
+      users = await User.find({
+        name: { $regex: new RegExp(name as string, "i") },
+      });
+    } else {
+      users = await User.find();
+    }
     res.status(200).json({
-      message: "Cars retrieved successfully",
+      message: "Users retrieved successfully",
       error: false,
       data: users,
     });
   } catch (error) {
     next(error);
   }
-};
-
-export const getUser = (req: Request, res: Response) => {
-  const { name } = req.params;
-  res.json({ user: name });
 };
 
 export const getUserById = async (
@@ -79,24 +82,35 @@ export const getUserById = async (
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const updateUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const birthdate = new Date(req.body.birthdate);
+  const birthdate = req.body.birthdate
+    ? new Date(req.body.birthdate)
+    : undefined;
   try {
-    const updateUser = await User.findByIdAndUpdate(req.params.id, {
-      ...req.body,
-      birthdate,
+    const updateData = { ...req.body };
+    if (birthdate) updateData.birthdate = birthdate;
+    const user = await User.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
     });
+    if (!user) {
+      res.status(404).json({
+        message: "User not found",
+        error: true,
+        data: undefined,
+      });
+      return;
+    }
     res.status(200).json({
       message: "User updated successfully",
-      data: updateUser,
-      error: false,  
-     });
+      data: user,
+      error: false,
+    });
   } catch (error) {
     next(error);
   }
@@ -115,7 +129,7 @@ export const deleteUser = async (
         error: true,
       });
     } else {
-      res.status(204).json({
+      res.status(200).json({
         message: "User deleted successfully",
         data: deleteUser,
         error: false,

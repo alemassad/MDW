@@ -49,10 +49,8 @@ export const updateUserValidation = (
   req: Request,
   res: Response,
   next: NextFunction
-): void => {
-  const { error: bodyError } = updateUserBodyValidationSchema.validate(
-    req.body
-  );
+) => {
+  const { error: bodyError } = updateUserBodyValidationSchema.validate(req.body);
   const { error: paramError } = userParamValidationSchema.validate(req.params);
 
   if (bodyError) {
@@ -60,12 +58,14 @@ export const updateUserValidation = (
       message: bodyError.details[0].message,
       error: true,
     });
+    return;
   }
   if (paramError) {
     res.status(400).json({
       message: paramError.details[0].message,
       error: true,
     });
+    return;
   }
 
   next();

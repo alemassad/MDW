@@ -9,8 +9,7 @@ import {
 } from "../controllers/index";
 
 const router = Router();
-router.get("/", getUsers);
-router.get("/:name", getUsers);
+router.get("/", getUsers); 
 router.get("/:id", getUserById);
 router.post("/", createUserValidation, createUser);
 router.patch("/:id", updateUserValidation, updateUser);
