@@ -17,7 +17,6 @@ export const getCars = async (
     next(error);
   }
 };
-
 export const getCar = async (
   req: Request,
   res: Response,
@@ -32,6 +31,7 @@ export const getCar = async (
         error: true,
         data: undefined,
       });
+      return;
     }
     res.status(200).json({
       message: "Car retrieved successfully",
@@ -41,7 +41,7 @@ export const getCar = async (
   } catch (error) {
     next(error);
   }
-};
+}
 
 export const getCarsByCategory = async (
   req: Request,
@@ -74,17 +74,17 @@ export const createCar = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const car = new Car(req.body);
-    await car.save();
+    const newCar = await Car.create(req.body);
     res.status(201).json({
       message: "Car created successfully",
       error: false,
-      data: car,
+      data: newCar,
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 export const updateCar = async (
   req: Request,

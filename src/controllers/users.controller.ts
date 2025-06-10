@@ -56,6 +56,31 @@ export const getUser = (req: Request, res: Response) => {
   res.json({ user: name });
 };
 
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({
+        message: "User not found",
+        error: true,
+        data: undefined,
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "User retrieved successfully",
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export const updateUser = async (
   req: Request,
   res: Response,

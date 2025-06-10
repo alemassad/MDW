@@ -27,11 +27,11 @@ try {
     next();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-        if (error.errorInfo.code === "auth/aegument-error") {
+        if (error.errorInfo.code === "auth/argument-error") {
             next("Provide a Token");
         }
         if (error.errorInfo.code === "auth/id-token-expired") {
-            next("Token expired");
+            next("Token has expired");
         }
         next(error.message);
     }
