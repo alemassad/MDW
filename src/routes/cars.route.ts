@@ -15,11 +15,12 @@ import {
 } from "../validations";
 
 const router = Router();
+
 router.get("/", getCars);
 router.get("/:id", authMiddleware, getCar);
-router.get("/category/:id", getCarsByCategory);
-router.post("/", createCarValidation, createCar);
-router.patch("/:id", updateCarValidation, updateCar);
-router.delete("/:id", deleteCarValidation, deleteCar);
+router.get("/category/:id", authMiddleware, getCarsByCategory);
+router.post("/", authMiddleware, createCarValidation, createCar);
+router.patch("/:id", authMiddleware, updateCarValidation, updateCar);
+router.delete("/:id", authMiddleware, deleteCarValidation, deleteCar);
 
 export default router;
