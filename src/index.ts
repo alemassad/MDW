@@ -2,6 +2,7 @@ import express, { json, Request, Response } from "express";
 import router from "./routes/index";
 import dotenv from "dotenv";
 import connectDB from "./database";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -10,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
+app.use(cors());
 app.use(json());
 
 app.get("/", (req: Request, res: Response) => {
