@@ -112,3 +112,34 @@ export const deleteCategory = async (
     next(error);
   }
 };
+
+export const logicalDeleteCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const category = await Category.findByIdAndUpdate(
+      req.params.id,
+      { isActive: false },
+      { new: true }
+    );
+
+    if (!category) {
+      res.status(404).json({
+        message: "Category not found",
+        error: true,
+        data: undefined,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Category logically deleted successfully",
+      error: false,
+      data: category,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

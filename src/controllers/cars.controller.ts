@@ -17,6 +17,7 @@ export const getCars = async (
     next(error);
   }
 };
+
 export const getCar = async (
   req: Request,
   res: Response,
@@ -41,7 +42,7 @@ export const getCar = async (
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const getCarsByCategory = async (
   req: Request,
@@ -84,7 +85,6 @@ export const createCar = async (
     next(error);
   }
 };
-
 
 export const updateCar = async (
   req: Request,
@@ -130,6 +130,37 @@ export const deleteCar = async (
     }
     res.status(200).json({
       message: "Car deleted successfully",
+      error: false,
+      data: car,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logicalDeleteCar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const car = await Car.findByIdAndUpdate(
+      req.params.id,
+      { isActive: false }, // Establece la baja lógica
+      { new: true }
+    );
+
+    if (!car) {
+      res.status(404).json({
+        message: "Car not found",
+        error: true,
+        data: undefined,
+      });
+      return; // Añadido para evitar que continúe la ejecución
+    }
+
+    res.status(200).json({
+      message: "Car logically deleted successfully",
       error: false,
       data: car,
     });

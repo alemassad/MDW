@@ -33,6 +33,33 @@ export const createUser = async (
     next(error);
   }
 };
+export const getUserByEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(404).json({
+        message: "User not found",
+        error: true,
+        data: undefined,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: "User retrieved successfully",
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const getUsers = async (
   req: Request,

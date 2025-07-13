@@ -6,6 +6,7 @@ import {
   createCar,
   updateCar,
   deleteCar,
+  logicalDeleteCar,
 } from "../controllers";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import {
@@ -22,5 +23,6 @@ router.get("/category/:id", authMiddleware, getCarsByCategory);
 router.post("/", authMiddleware, createCarValidation, createCar);
 router.patch("/:id", authMiddleware, updateCarValidation, updateCar);
 router.delete("/:id", authMiddleware, deleteCarValidation, deleteCar);
+router.patch("/logical-delete/:id",authMiddleware, logicalDeleteCar);
 
 export default router;

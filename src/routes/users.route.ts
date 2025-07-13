@@ -3,6 +3,7 @@ import { createUserValidation, deleteUserValidation, updateUserValidation } from
 import {
   createUser,
   deleteUser,
+  getUserByEmail,
   getUserById,
   getUsers,
   updateUser,
@@ -12,8 +13,9 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 const router = Router();
 
 router.get("/", getUsers);
+router.get("/email/:email", getUserByEmail);
 router.get("/:id", authMiddleware, getUserById);
-router.post("/", createUserValidation, createUser); // Registro público
+router.post("/", createUserValidation, createUser); 
 router.patch("/:id", authMiddleware, updateUserValidation, updateUser);
 router.delete("/:id", authMiddleware, deleteUserValidation, deleteUser);
 
