@@ -6,6 +6,7 @@ import {
   getUserByEmail,
   getUserById,
   getUsers,
+  logicalDeleteUser,
   updateUser,
 } from "../controllers/index";
 import { authMiddleware } from "../middlewares/auth.middleware";
@@ -18,5 +19,6 @@ router.get("/:id", authMiddleware, getUserById);
 router.post("/", createUserValidation, createUser); 
 router.patch("/:id", authMiddleware, updateUserValidation, updateUser);
 router.delete("/:id", authMiddleware, deleteUserValidation, deleteUser);
+router.patch("/logical-delete/:id", authMiddleware, logicalDeleteUser);
 
 export default router;

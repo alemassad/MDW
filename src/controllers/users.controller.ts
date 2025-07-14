@@ -23,6 +23,7 @@ export const createUser = async (
       ...restBody,
       firebaseUid: uid,
       birthdate: formatedDate,
+      isActive: true,
     });
     res.status(201).json({
       message: "User created successfully",
@@ -149,19 +150,53 @@ export const deleteUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const deleteUser = await User.findByIdAndDelete(req.params.id);
-    if (!deleteUser) {
+    const user = await User.findByIdAndDelete(req.params.id);
+
+    if (!user) {
       res.status(404).json({
         message: "User not found",
         error: true,
+        data: undefined,
       });
-    } else {
-      res.status(200).json({
-        message: "User deleted successfully",
-        data: deleteUser,
-        error: false,
-      });
+      return;
     }
+
+    res.status(200).json({
+      message: "User deleted successfully",
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logicalDeleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { isActive: false },
+      { new: true }
+    );
+
+    if (!user) {
+      res.status(404).json({
+        message: "User not found",
+        error: true,
+        data: undefined,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: "User logically deleted successfully",
+      error: false,
+      data: user,
+    });
   } catch (error) {
     next(error);
   }

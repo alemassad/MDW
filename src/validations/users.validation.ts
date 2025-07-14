@@ -13,6 +13,7 @@ const createUserBodyValidationSchema = Joi.object({
     .required(),
   password: Joi.string().min(4).max(20).required(),
   isAdmin: Joi.boolean().optional().default(false),
+  isActive: Joi.boolean().optional().default(true),
 });
 
 export const createUserValidation = (
@@ -33,12 +34,13 @@ export const createUserValidation = (
 const updateUserBodyValidationSchema = Joi.object({
   name: Joi.string().min(3).max(50).optional(),
   lastname: Joi.string().optional(),
-  birthdate: Joi.date().optional(),
+  birthdate: Joi.date().iso().required(),
   email: Joi.string()
     .pattern(emailPattern)
     .message("Ingrese un email válido")
     .optional(),
   isAdmin: Joi.boolean().optional(),
+  isActive: Joi.boolean().optional(),
 });
 
 const userParamValidationSchema = Joi.object({

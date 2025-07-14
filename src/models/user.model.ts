@@ -7,6 +7,7 @@ interface User extends Document {
   email: string;
   isAdmin: boolean;
   firebaseUid: string;
+  isActive?: boolean;
 }
 
 const UserSchema: Schema = new Schema(
@@ -16,7 +17,8 @@ const UserSchema: Schema = new Schema(
     birthdate: { type: Date, required: true },
     email: { type: String, required: true, unique: true },
     isAdmin: { type: Boolean, default: false },
-    firebaseUid: { type: String},
+    firebaseUid: { type: String },
+    isActive: { type: Boolean, default: true },
   },
   {
     timestamps: true,
