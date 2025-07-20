@@ -5,6 +5,7 @@ const createCategoryBodySchema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
   description: Joi.string().min(3).max(500).required(),
   cars: Joi.array().items(Joi.string().hex().length(24)).optional(),
+  isActive: Joi.boolean().optional(),
 });
 
 const updateCategoryBodySchema = Joi.object({

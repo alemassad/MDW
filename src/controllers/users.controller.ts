@@ -117,23 +117,25 @@ export const updateUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const birthdate = req.body.birthdate
-    ? new Date(req.body.birthdate)
-    : undefined;
+  const birthdate = req.body.birthdate ? new Date(req.body.birthdate) : undefined;
   try {
     const updateData = { ...req.body };
     if (birthdate) updateData.birthdate = birthdate;
-    const user = await User.findByIdAndUpdate(req.params.id, updateData, {
-      new: true,
-    });
-    if (!user) {
+
+    // Busca el usuario actual
+    const userBefore = await User.findById(req.params.id);
+    if (!userBefore) {
       res.status(404).json({
         message: "User not found",
         error: true,
         data: undefined,
       });
       return;
-    }
+    }    
+    const user = await User.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+
     res.status(200).json({
       message: "User updated successfully",
       data: user,

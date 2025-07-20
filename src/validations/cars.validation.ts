@@ -4,11 +4,11 @@ import Joi from "joi";
 const createCarBodyValidationSchema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
   description: Joi.string().min(3).max(500).required(),
-  amount: Joi.number().min(0).required(), // <-- AGREGA ESTA LÍNEA
+  amount: Joi.number().min(0).required(), 
   price: Joi.number().min(0).required(),
-  category: Joi.string().hex().length(24).required(),
+  category: Joi.string().hex().length(24).optional(),
   image: Joi.string().required(),
-  ownerId: Joi.string().hex().length(24).required(),
+  ownerId: Joi.string().hex().length(24).optional(),
 });
 
 export const createCarValidation = (
@@ -31,11 +31,12 @@ export const createCarValidation = (
 const updateCarBodyValidationSchema = Joi.object({
   name: Joi.string().min(3).max(50).optional(),
   description: Joi.string().min(3).max(500).optional(),
-  amount: Joi.number().min(0).optional(), // <-- AGREGA ESTA LÍNEA
+  amount: Joi.number().min(0).optional(),
   price: Joi.number().min(0).optional(),
   category: Joi.string().hex().length(24).optional(),
   image: Joi.string().uri().optional(),
-  ownerId: Joi.string().hex().length(24).optional(), // <-- AGREGA ESTA LÍNEA
+  ownerId: Joi.string().hex().length(24).optional(),
+  isActive: Joi.boolean().optional(),
 });
 
 const carIdSchema = Joi.object({
