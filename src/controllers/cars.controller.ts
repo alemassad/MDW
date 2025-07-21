@@ -68,7 +68,7 @@ export const getCarsByCategory = async (
     next(error);
   }
 };
-//------- COMPLETANDO CRUD ----------------------
+
 export const createCar = async (
   req: Request,
   res: Response,
