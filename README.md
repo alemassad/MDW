@@ -143,4 +143,4 @@ El backend está desplegado en Vercel y disponible en:
 
 ## Alumno
 
-Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS
+Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS WEB
