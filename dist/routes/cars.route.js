@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const validations_1 = require("../validations");
+const router = (0, express_1.Router)();
+router.get("/", controllers_1.getCars);
+router.get("/:id", auth_middleware_1.authMiddleware, controllers_1.getCar);
+router.get("/category/:id", auth_middleware_1.authMiddleware, controllers_1.getCarsByCategory);
+router.post("/", auth_middleware_1.authMiddleware, validations_1.createCarValidation, controllers_1.createCar);
+router.patch("/:id", auth_middleware_1.authMiddleware, validations_1.updateCarValidation, controllers_1.updateCar);
+router.delete("/:id", auth_middleware_1.authMiddleware, validations_1.deleteCarValidation, controllers_1.deleteCar);
+router.patch("/logical-delete/:id", auth_middleware_1.authMiddleware, controllers_1.logicalDeleteCar);
+exports.default = router;
