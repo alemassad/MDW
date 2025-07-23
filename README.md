@@ -19,6 +19,10 @@ Este proyecto es una API desarrollada en **Node.js** con **Express** y **MongoDB
 - **Compilación TypeScript:** Uso de `tsc` y carpeta `dist` para código compilado.
 - **Control de errores y seguridad:** Middlewares para autenticación y validación de datos.
 - **CORS:** Configuración para permitir acceso seguro desde el frontend.
+- **Dotenv:** Manejo seguro de variables de entorno.
+- **Nodemon:** Recarga automática en desarrollo.
+- **ESLint:** Calidad de código.
+- **Vercel:** Despliegue automático.
 
 ---
 
@@ -129,7 +133,7 @@ src/
 
 El backend está desplegado en Vercel y disponible en:
 
-[https://mdw-autos-backend.vercel.app/]
+[https://mdw-autos-backend.vercel.app/](https://mdw-autos-backend.vercel.app/)
 
 ---
 
@@ -142,4 +146,4 @@ El backend está desplegado en Vercel y disponible en:
 
 ## Alumno
 
-Desarrollado por Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS WEB.
+Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS WEB.
