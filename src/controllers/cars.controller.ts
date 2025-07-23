@@ -146,7 +146,7 @@ export const logicalDeleteCar = async (
   try {
     const car = await Car.findByIdAndUpdate(
       req.params.id,
-      { isActive: false }, // Establece la baja lógica
+      { isActive: false }, 
       { new: true }
     );
 
@@ -156,7 +156,7 @@ export const logicalDeleteCar = async (
         error: true,
         data: undefined,
       });
-      return; // Añadido para evitar que continúe la ejecución
+      return; 
     }
 
     res.status(200).json({

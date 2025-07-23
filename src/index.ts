@@ -11,7 +11,14 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://mdw-autos-front.vercel.app", 
+    "http://localhost:3000"            
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  credentials: true
+}));
 app.use(json());
 
 app.get("/", (req: Request, res: Response) => {

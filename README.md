@@ -1,6 +1,6 @@
 # Backend - Concesionaria de Automóviles
 
-Este proyecto es una API RESTful desarrollada en **Node.js** con **Express** y **MongoDB** para gestionar una concesionaria de automóviles. Permite administrar usuarios, autos y categorías de autos, con autenticación basada en Firebase y despliegue en Vercel.
+Este proyecto es una API desarrollada en **Node.js** con **Express** y **MongoDB** para gestionar una concesionaria de automóviles. Permite administrar usuarios, autos y categorías de autos, con autenticación basada en Firebase y despliegue en Vercel.
 
 ---
 
@@ -54,7 +54,7 @@ src/
    ```
 5. **Inicia el servidor en desarrollo**
    ```bash
-   npm run dev
+   npm run start
    ```
 
 ---
@@ -93,7 +93,7 @@ src/
 
 ## Autenticación
 
-- La mayoría de las rutas requieren un **token JWT de Firebase** en el header:
+- La mayoría de las rutas requieren un **token JSON Web Token de Firebase** en el header:
   ```
   Authorization: Bearer <token>
   ```
@@ -129,7 +129,7 @@ src/
 
 El backend está desplegado en Vercel y disponible en:
 
-[https://mdw-autos-backend.vercel.app/](https://mdw-autos-backend.vercel.app/)
+[https://mdw-autos-backend.vercel.app/]
 
 ---
 
@@ -137,10 +137,9 @@ El backend está desplegado en Vercel y disponible en:
 
 - Para probar las rutas protegidas, primero obtén un token de usuario autenticado en Firebase.
 - Las imágenes de autos se almacenan como URLs.
-- Puedes extender el proyecto agregando más campos, relaciones o funcionalidades según tus necesidades.
 
 ---
 
 ## Alumno
 
-Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS
+Desarrollado por Luis Alejandro Massad, alumno UAI para la materia METODOLOGÍAS Y DESARROLLOS WEB.

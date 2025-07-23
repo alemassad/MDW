@@ -45,7 +45,14 @@ const app = (0, express_1.default)();
 dotenv_1.default.config();
 const port = process.env.PORT || 3000;
 (0, database_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: [
+        "https://mdw-autos-front.vercel.app",
+        "http://localhost:3000"
+    ],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true
+}));
 app.use((0, express_1.json)());
 app.get("/", (req, res) => {
     res.send("Hola campeon");

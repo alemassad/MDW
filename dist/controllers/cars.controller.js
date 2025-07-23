@@ -128,15 +128,14 @@ const deleteCar = (req, res, next) => __awaiter(void 0, void 0, void 0, function
 exports.deleteCar = deleteCar;
 const logicalDeleteCar = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const car = yield models_1.Car.findByIdAndUpdate(req.params.id, { isActive: false }, // Establece la baja lógica
-        { new: true });
+        const car = yield models_1.Car.findByIdAndUpdate(req.params.id, { isActive: false }, { new: true });
         if (!car) {
             res.status(404).json({
                 message: "Car not found",
                 error: true,
                 data: undefined,
             });
-            return; // Añadido para evitar que continúe la ejecución
+            return;
         }
         res.status(200).json({
             message: "Car logically deleted successfully",
